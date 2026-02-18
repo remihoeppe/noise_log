@@ -47,14 +47,42 @@ const Log = ({
                         exclusive={false}
                         aria-label="multiple selection"
                         className="col-span-3 flex flex-wrap gap-2">
-                        {optionsData.map((option) => (
-                            <ToggleButton
-                                key={option.id}
-                                value={option.name}
-                                aria-label={option.name}>
-                                {option.name}
-                            </ToggleButton>
-                        ))}
+                        {optionsData.map((option) => {
+                            const isSelected = selected.includes(option.name);
+                            console.log(
+                                `${option.name} is selected: ${isSelected}`,
+                            );
+                            return (
+                                <ToggleButton
+                                    key={option.id}
+                                    value={option.name}
+                                    aria-label={option.name}
+                                    sx={{
+                                        // Default (NOT selected) – look like normal outlined button
+                                        borderRadius: 2,
+
+                                        // Not selected
+                                        bgcolor: 'primary.light',
+                                        color: 'primary.contrastText',
+
+                                        '&:hover': {
+                                            bgcolor: 'primary.main',
+                                        },
+
+                                        // Selected state
+                                        '&.Mui-selected': {
+                                            bgcolor: 'primary.main',
+                                            color: 'primary.contrastText',
+
+                                            '&:hover': {
+                                                bgcolor: 'primary.dark',
+                                            },
+                                        },
+                                    }}>
+                                    {option.name}
+                                </ToggleButton>
+                            );
+                        })}
                     </ToggleButtonGroup>
                 )}
             </div>
