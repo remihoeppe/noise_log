@@ -5,9 +5,9 @@ import NoiseType from '../data/noiseType';
 
 const Home = () => {
     const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
-    const [selectedNoiseType, setSelectedNoiseType] = useState<string | null>(
-        null,
-    );
+    const [selectedNoiseTypes, setSelectedNoiseTypes] = useState<
+        string[] | null
+    >(null);
 
     const noiseTypeData = Object.values(NoiseType).map((noiseType) => ({
         id: noiseType,
@@ -20,6 +20,7 @@ const Home = () => {
     ) => {
         setter(optionName);
     };
+
     return (
         <>
             {/* Selection of current room */}
@@ -33,25 +34,20 @@ const Home = () => {
             )}
             {selectedRoom && <p>Selected room: {selectedRoom}</p>}
 
-            {/* Selection of noise type */}
-            {!selectedNoiseType && (
-                <Log
-                    optionsData={noiseTypeData}
-                    onSelected={(optionName) =>
-                        handleSelectedOption(optionName, setSelectedNoiseType)
-                    }
-                />
-            )}
-            {selectedNoiseType && (
-                <p>Selected noise type: {selectedNoiseType}</p>
-            )}
-            {selectedNoiseType && (
-                <Log
-                    optionsData={noiseTypeData}
-                    onSelected={(optionName) =>
-                        handleSelectedOption(optionName, setSelectedNoiseType)
-                    }
-                />
+            {/* Selection of noise type (multi-select, no duplicates) */}
+            {selectedRoom && (
+                <>
+                    {selectedNoiseTypes && selectedNoiseTypes.length > 0 && (
+                        <p>Selected noise type: {selectedNoiseTypes.join(', ')}</p>
+                    )}
+                    <Log
+                        optionsData={noiseTypeData}
+                        toggleable
+                        selected={selectedNoiseTypes ?? []}
+                        onSelected={() => {}}
+                        onSelectedMultiple={setSelectedNoiseTypes}
+                    />
+                </>
             )}
         </>
     );
