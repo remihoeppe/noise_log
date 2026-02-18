@@ -1,9 +1,10 @@
 import Log from './Log';
+import roomsData from '../data/room';
 
 const Home = () => {
     return (
         <>
-            <Log />
+            <Log optionsData={roomsData} />
         </>
     );
 };
