@@ -1,12 +1,10 @@
-import RoomButton from '../components/buttons/RoomButton';
+import Log from './Log';
 
 const Home = () => {
     return (
-        <div>
-            <RoomButton onClick={() => console.log('clicked')}>
-                Living Room
-            </RoomButton>
-        </div>
+        <>
+            <Log />
+        </>
     );
 };
 
